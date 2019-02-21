@@ -3,27 +3,26 @@ body{
     font-family: Verdana
 }
 
-ul#topbarlist{
+ul.topbaritem{
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: darkturquoise;
-    overflow: hidden;
     position: fixed;    
     top: 0;
     left: 0;
     width:100%;
 }
-#topbarlist li{
+.topbaritem li{
     float:left;
 }
-#topbarlist a{
+.topbaritem a{
     display: block;
     padding: 10px 10px;
     color: white;
     text-decoration: none;
 }
-#topbarlist a:hover{
+.topbaritem a:hover{
     background-color: mediumaquamarine;
 }
 
@@ -35,6 +34,18 @@ a#topbaractive{
     background-color: cadetblue;
 }
 
+a#topbaractive:hover{
+    background-color: mediumaquamarine;
+}
+
+a#dropdownactive{
+    background-color: palegoldenrod;
+}
+
+a#dropdownactive:hover{
+    background-color: sandybrown;
+}
+
 li.dropdown{
     display: inline;
 }
@@ -42,13 +53,12 @@ li.dropdown{
 .dropdowntail{
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
+    background-color: lightgoldenrodyellow;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-.dropdowntail a {
+.dropdowntail a{
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -56,11 +66,11 @@ li.dropdown{
     text-align: left;
 }
 
-.dropdowntail a:hover {
-    background-color: #f1f1f1;
+.dropdowntail a:hover{
+    background-color: sandybrown;
 }
 
-.dropdown:hover .dropdowntail {
+.dropdown:hover .dropdowntail{
     display: block;
 }
 
@@ -73,5 +83,5 @@ li a, .dropdowntop{
 }
 
 li a:hover, .dropdown:hover .dropdowntop {
-  background-color: red;
+  background-color: mediumaquamarine;
 }
