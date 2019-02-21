@@ -4,16 +4,30 @@
     <title>Home - boboquack</title>
     <style>
         body{
-            background-color:paleturquoise
+            background-color: paleturquoise;
         }
         ul#topbarlist{
-            background-color:darkturquoise;list-style-type: none,margin:0;padding=0
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: darkturquoise;
+            overflow: hidden;
+        }
+        #topbarlist li{
+            float:left
+        }
+        #topbarlist a{
+            display: block;
+            padding: 10px 10px;
+            color: white;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <ul id="topbarlist">
-        <li><a href="./">Home</a></li>
+    <ul id="topbarlist" class="topbaritem">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Homeaswell</a></li>
     </ul>
     <h1>
         Hello World
