@@ -11,7 +11,7 @@ ul.topbaritem{
     position: fixed;    
     top: 0;
     left: 0;
-    width:100%;
+    width: 100%;
 }
 .topbaritem li{
     float:left;
@@ -27,7 +27,7 @@ ul.topbaritem{
 }
 
 div#topbarspace{
-    margin-top:45px;
+    margin-top: 45px;
 }
 
 a#topbaractive{
