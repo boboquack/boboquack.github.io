@@ -111,3 +111,7 @@ table.generictable {
 .blanktable td{
     padding: 15px;
 }
+
+.spacedlist li{
+    margin-bottom: 10px;
+}

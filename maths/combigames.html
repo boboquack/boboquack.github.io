@@ -35,14 +35,14 @@
     </p>
     <ul>
         <li>Two players alternate turns making a move</li>
-        <li>Every move is defined before it is made (there is no luck or randomness involved)</li>
-        <li>It is only possible for one person to win and the other to lose, vice versa, for the game to be drawn or for the game to go on forever (which is considered as a draw)</li>
+        <li>Every move is defined before it is made (there is no luck or randomness involved and nothing can be hidden from either player)</li>
+        <li>It is only possible for one person to win and the other to lose, vice versa, or for the game to go on forever (which is considered as a draw)</li>
     </ul>
     <p>
-        Then the <i>Fundamental Theorem of Combinatorial Games</i> states that exactly one of these two options must be that case: one of the two players can force a win (i.e. they have a winning strategy), or both players can force a draw (including the game going on forever).
+        Then the <i>Fundamental Theorem of Combinatorial Games</i> states that precisely one of these two options must be the case: exactly one of the two players can force a win (i.e. they have a winning strategy), or both players can force the game to go on forever.
     </p>
     <p>
-        Particularly of interest are <i>finite</i> games &ndash; games that end after a finite number of turns no matter how play goes (this is not necessarily a bounded number of turns, also note that by our definition this means one player must win or a drawing state is reached) &ndash; and <i>impartial</i> games &ndash; games where the rules for what moves are available do not depend on the player. (Technically all games can be reformulated to be impartial by tracking whose turn it is to move in-game, but this isn't usually useful.)
+        Particularly of interest are <i>short</i> games &ndash; games that end with some player winning and the other losing after a finite (not necessarily bounded) number of turns &ndash; and <i>impartial</i> games &ndash; games where the rules for what moves are available do not depend on the player. (Technically all games can be reformulated to be impartial by tracking whose turn it is to move in-game, but this isn't usually useful.)
     </p>
     <h2>
         Strategy Stealing
@@ -50,16 +50,16 @@
     <p>
         One of the easiest ways to win is to copy your opponent. Try playing the following games with a friend.
     </p>
-    <ol>
+    <ol class="spacedlist">
         <li>
             The game of <i>mis&eacute;r&eacute; naughts and crosses</i> is being played on a 4 by 4 grid. Two players take turns placing an X and an O on the grid respectively, and the first person to make a line of 3 consecutive identical symbols loses. Can the first player guarantee a win?
             <div class="smallpadding"></div>
             <table class="blanktable generictable"><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
             <div class="smallpadding"></div>
+            <i>Technically this is not a combinatorial game because it is possible to draw, but this works for the sake of illustration.</i>
         </li>
         <li>
             Alice and Bob have a large pile of identical coins and a small rectangular table (bigger than the size of a coin). They take turns placing coins on the table such that the coins are all entirely on the table and no two coins overlap. The loser is the first player who cannot move. Which player has a winning strategy?
-            <div class="smallpadding"></div>
         </li>
         <li>
             The game of <i>Hex</i> is played on the following grid. Two players take turns colouring cells red and green respectively. Player 1 wins if they make a red chain from the top side to the bottom side, and player 2 wins if they make a green chain from the left side to the right side. Assuming optimal play from both sides, who wins? (You can assume that a draw is impossible, but this is also interesting to prove.) 
@@ -70,14 +70,31 @@
     <p>
         Strategy stealing can be useful even in the case where there is no explicit strategy in an impartial game, using proof by contradiction. For example, suppose player 2 has a winning strategy, but player 1 can get back to the starting position at the end of their turn, they can now copy player 2's strategy &ndash; i.e. they also have a winning strategy, which is a contradiction by the Fundamental Theorem of Combinatorial Games.
     </p>
-    <ol>
+    <ol class="spacedlist">
         <li>
             The game of <i>Double Chess</i> is identical to normal chess except on each turn each player makes two legal moves. Can player 2 have a winning strategy?
-            <div class="smallpadding"></div>
         </li>
         <li>
             The game of <i>Gomoku</i> is played on a <a href="gomokugrid.html">14x14 grid</a>. On each turn players take turns playing black and white stone respectively on the grid intersections. The first person to make a line of 5 of their colour stone (vertically, horizontally or diagonally) wins. Show that player 1 cannot lose with optimal play.
         </li>
+    </ol>
+    <h2>
+        Winning and Losing Positions
+    </h2>
+    <p>
+        In short games, we can classify every position as either winning or losing. We will call a position winning (technically known as an N-position) if the person whose turn it is to move has a winning strategy, and losing (a P-position) if the person whose turn it is to move has no winning strategy. Then we can make the observation that:
+    </p>
+    <ul>
+        <li>From a winning position, it must always be <b>possible</b> to move to a losing position</li>
+        <li>From a losing position, <b>all</b> moves must go to a winning position</li>
+    </ul>
+    <p>
+        By working back from the definite winning/losing positions (the ends of the game), we can often work out a pattern in which positions are winning and losing, and from there sometimes a winning strategy.
+    </p>
+    <ol class="spacedlist">
+        <li>
+            There are <i>n</i> coins, and two players alternate taking one, two or three coins. The person who takes the last coin loses. Who wins for each for value of <i>n</i>?
+        </li> 
     </ol>
     <h2>
         Miscellaneous Problems
@@ -85,10 +102,9 @@
     <p>
         The problems here aren't in any particular order so you'll have to apply the skills you've learnt to solve them.
     </p>
-    <ol>
+    <ol class="spacedlist">
         <li>
             In the game of <i>Bubbly</i>, there are some non-intersecting bubbles floating in the air, some of which are in some of the other bubbles, and all of them contained inside an outer bubble. Two players take turns choosing a bubble to pop, and they pop that bubble and all bubbles containing it. The person to pop the last bubble wins. Which player has a winning strategy?
-            <div class="smallpadding"></div>
         </li>
         <li>
             The game of <i>Udokus</i> is played on a <a href="sudokugrid.html">9x9 grid divided into 3x3 boxes</a>. Two player take turns placing any whole number from 1 to 9 in an empty cell, such that no two identical numbers are in the same row, column or box. The first player who cannot move loses. Assuming optimal play, who wins?
