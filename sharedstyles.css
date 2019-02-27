@@ -1,6 +1,12 @@
 body{
     background-color: paleturquoise;
-    font-family: Verdana
+    font-family: Verdana;
+    text-align: justify
+}
+
+a{
+    color: forestgreen;
+    text-decoration: none;
 }
 
 ul.topbaritem{
@@ -28,6 +34,14 @@ ul.topbaritem{
 
 div#topbarspace{
     margin-top: 45px;
+}
+
+div.smallpadding{
+    margin-top: 10px;
+}
+
+div.wrapper{
+    margin: 30px;
 }
 
 a#topbaractive{
@@ -74,7 +88,7 @@ li.dropdown{
     display: block;
 }
 
-li a, .dropdowntop{
+li.dropdowntop a{
     display: inline-block;
     color: white;
     text-align: center;
@@ -82,6 +96,18 @@ li a, .dropdowntop{
     text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropdowntop {
+li.dropdowntop a:hover, .dropdown:hover {
   background-color: mediumaquamarine;
+}
+
+table.generictable {
+    border-collapse: collapse;
+}
+
+.generictable td {
+    border: 1px solid black;
+}
+
+.blanktable td{
+    padding: 15px;
 }
