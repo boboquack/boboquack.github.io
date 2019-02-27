@@ -42,7 +42,7 @@
         Then the <i>Fundamental Theorem of Combinatorial Games</i> states that precisely one of these two options must be the case: exactly one of the two players can force a win (i.e. they have a winning strategy), or both players can force the game to go on forever.
     </p>
     <p>
-        Particularly of interest are <i>short</i> games &ndash; games that end with some player winning and the other losing after a finite (not necessarily bounded) number of turns &ndash; and <i>impartial</i> games &ndash; games where the rules for what moves are available do not depend on the player. (Technically all games can be reformulated to be impartial by tracking whose turn it is to move in-game, but this isn't usually useful.)
+        Particularly of interest are <i>short</i> games &ndash; games that end with some player winning and the other losing after a finite (not necessarily bounded) number of turns &ndash; and <i>impartial</i> games &ndash; games where the rules for what moves are available do not depend on the player.
     </p>
     <h2>
         Strategy Stealing
@@ -56,19 +56,20 @@
             <div class="smallpadding"></div>
             <table class="blanktable generictable"><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></table>
             <div class="smallpadding"></div>
-            <i>Technically this is not a combinatorial game because it is possible to draw, but this works for the sake of illustration.</i>
+            <i>Note: Technically this is not a combinatorial game because it is possible to draw, but this works for the sake of illustration.</i>
+        </li>
+        <li>
+            A rook is placed at a1 on a chessboard, and two players take turns up or to the right any number of squares. The player who moves it to h8 wins, so which player has a winning strategy?
         </li>
         <li>
             Alice and Bob have a large pile of identical coins and a small rectangular table (bigger than the size of a coin). They take turns placing coins on the table such that the coins are all entirely on the table and no two coins overlap. The loser is the first player who cannot move. Which player has a winning strategy?
         </li>
-        <li>
-            The game of <i>Hex</i> is played on the following grid. Two players take turns colouring cells red and green respectively. Player 1 wins if they make a red chain from the top side to the bottom side, and player 2 wins if they make a green chain from the left side to the right side. Assuming optimal play from both sides, who wins? (You can assume that a draw is impossible, but this is also interesting to prove.) 
-            <div class="smallpadding"></div>
-            <img src="5x5%20Hex%20Grid.png" alt="5x5 grid for Hex">
-        </li>
     </ol>
     <p>
-        Strategy stealing can be useful even in the case where there is no explicit strategy in an impartial game, using proof by contradiction. For example, suppose player 2 has a winning strategy, but player 1 can get back to the starting position at the end of their turn, they can now copy player 2's strategy &ndash; i.e. they also have a winning strategy, which is a contradiction by the Fundamental Theorem of Combinatorial Games.
+        Strategy stealing can be useful even in the case where there is no explicit winning strategy in games which are impartial up to some kind of colouring, by using proof by contradiction. For example, suppose player 2 has a winning strategy, but player 1 can get back to the starting position at the end of their turn, they can now copy player 2's strategy &ndash; i.e. they also have a winning strategy, which is a contradiction by the Fundamental Theorem of Combinatorial Games.
+    </p>
+    <p>
+        <i>Note: neither of these two are combinatorial games because a draw is possible, but these work for the sake of illustration.</i>
     </p>
     <ol class="spacedlist">
         <li>
@@ -76,6 +77,7 @@
         </li>
         <li>
             The game of <i>Gomoku</i> is played on a <a href="gomokugrid.html">14x14 grid</a>. On each turn players take turns playing black and white stone respectively on the grid intersections. The first person to make a line of 5 of their colour stone (vertically, horizontally or diagonally) wins. Show that player 1 cannot lose with optimal play.
+            <div class="smallpadding"></div>
         </li>
     </ol>
     <h2>
@@ -93,8 +95,18 @@
     </p>
     <ol class="spacedlist">
         <li>
-            There are <i>n</i> coins, and two players alternate taking one, two or three coins. The person who takes the last coin loses. Who wins for each for value of <i>n</i>?
+            There are 2019 tokens on the table, and two players alternate taking one, two or three tokens. The person who takes the last token loses. Which player can force a win?
+            <div class="smallpadding"></div>
+            <i>Note: in a way, this problem gives rise to an infinite set of problems. Instead of being able to take {1,2,3} coins, try {positive squares} or {primes numbers and 1} and other similar variants, for example.</i>
         </li> 
+        <li>
+            Two piles with 20 and 19 jellybeans are on the table. Two players take turns eating all the jellybeans in one pile and splitting the remaining pile into two piles of at least one jellybean. The player who cannot move loses (this occurs when both piles have exactly one jellybean). Which player has a winning strategy?
+        </li>
+        <li>
+            There are 2019 seeds on the table. Two players alternate taking either 1 seed or half the seeds (rounded up). If the person who takes the last seed wins, which player has a winning strategy?
+            <div class="smallpadding"></div>
+            <i>Note: 2019 is an "easy" number to analyse. For a bit more of a challenge, try solving the general case with any number of seeds.</i>
+        </li>
     </ol>
     <h2>
         Miscellaneous Problems
@@ -105,6 +117,24 @@
     <ol class="spacedlist">
         <li>
             In the game of <i>Bubbly</i>, there are some non-intersecting bubbles floating in the air, some of which are in some of the other bubbles, and all of them contained inside an outer bubble. Two players take turns choosing a bubble to pop, and they pop that bubble and all bubbles containing it. The person to pop the last bubble wins. Which player has a winning strategy?
+        </li>
+        <li>
+            In the game of <i>Cartesian Chase</i>, a counter is placed at (1, 1) with the objective of getting to (20, 19). Two players take turns moving either one unit right, one unit up or &radic;2 units diagonally up and to the right, as long as they don't go right of x=20 or above y=19. Which player should win if they play perfectly?
+        </li>
+        <li>
+            In the game of <i>Chomp</i>, two players have a rectangular block of chocolate with at least two squares. They take turns choosing a square of chocolate and eating that square and all squares to the up and right of it (they are facing the same direction). Unfortunately the bottom-right square is poisoned, so the person who eats it loses. Assuming both players play optimally, who wins?
+        </li>
+        <li>
+            The number 2019 is written on the blackboard. Two players take turns subtracting a proper divisor of the number currently on the blackboard, erasing it and writing the new number. The player who cannot move (i.e. has the number 1 on the board at the start of their turn) loses. Which player has a winning strategy?
+            <div class="smallpadding"></div>
+            <i>Note: A proper divisor of a number is any positive factor of the number less than the number itself.</i>
+        </li>
+        <li>
+            The game of <i>Hex</i> is played on the following grid. Two players take turns colouring cells red and green respectively. Player 1 wins if they make a red chain from the top side to the bottom side, and player 2 wins if they make a green chain from the left side to the right side. Assuming optimal play from both sides, who wins?
+            <div class="smallpadding"></div>
+            <i>Note: you can assume that a draw is impossible, but this is also interesting to prove.</i>
+            <div class="smallpadding"></div>
+            <img src="5x5%20Hex%20Grid.png" alt="5x5 grid for Hex">
         </li>
         <li>
             The game of <i>Udokus</i> is played on a <a href="sudokugrid.html">9x9 grid divided into 3x3 boxes</a>. Two player take turns placing any whole number from 1 to 9 in an empty cell, such that no two identical numbers are in the same row, column or box. The first player who cannot move loses. Assuming optimal play, who wins?
