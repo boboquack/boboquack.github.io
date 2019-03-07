@@ -115,3 +115,7 @@ table.generictable {
 .spacedlist li{
     margin-bottom: 10px;
 }
+
+p.textadventure{
+    line-height: 0px;
+}
