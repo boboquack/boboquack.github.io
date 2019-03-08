@@ -116,6 +116,10 @@ table.generictable {
     margin-bottom: 10px;
 }
 
+.unspacedlist li{
+    margin-bottom: 0px;
+}
+
 p.textadventure{
     line-height: 0px;
 }

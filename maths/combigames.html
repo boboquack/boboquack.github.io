@@ -109,6 +109,60 @@
         </li>
     </ol>
     <h2>
+        Nim, nimbers and Sparse
+    </h2>
+    <p>
+        The game of <i>Nim</i> is played as follows:
+    </p>
+    <ol class="spacedlist">
+        <li>
+            There are some piles of lollies on the table. Two people alternate turns, and on each turn they select a pile and take some number of lollies from that pile. The person who takes the last lolly wins. Given the initial number of piles and how many lollies are in each pile, who wins with optimal play?
+        </li>
+    </ol>
+    <p>
+        The game with one pile is trivial, and the game with two piles is easily solved with strategy stealing (if this isn't obvious). However, the game with three or more piles becomes more complicated to analyse.
+    </p>
+    <p>
+        Interestingly, there is a way to solve it, which involves <i>Nim addition</i>, also known as <i>bitwise XOR</i> and represented by the symbol &oplus;. To work out <i>a</i> &oplus; <i>b</i>, we compare their binary strings and place 1 where they don't match. For example (using <code>^</code> instead of &oplus;, which it is in programming):
+    </p>
+    <pre>  a | (5) 101     | (19) 10011      | (43) 101011
+  b | (6) 110     | (14)  1110      | (43) 101011
+a^b |     011 (3) |      11101 (29) |      000000 (0)</pre>
+    <p>
+        In particular, if there are <i>k</i> piles with <i>x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>k</sub></i> tokens, the position is winning for the first player if <i>x<sub>1</sub></i> &oplus; <i>x<sub>2</sub></i> &oplus; <i>...</i> &oplus; <i>x<sub>k</sub></i> > 0 and for the second player if that value is equal to 0. It is interesting to prove that these are correct classifications of winning and losing positions (it is useful to note &oplus; behaves like addition in most cases, and that <i>x</i> &oplus; <i>x</i> = 0).
+    </p>
+    <p>
+        The winning strategy for Nim is therfore to always move to a position whose <i>Nim-value</i> is zero.
+    </p>
+    <p>
+        Interestingly, this technique can be used for more than just Nim. The <i>Sprague-Grundy Theorem</i> states that in a short game, all positions can be labelled with a number which represents an equivalent Nim value.
+    </p>
+    <p>
+        This is done by labelling all end states as 0, then for each state which does not yet have a value but all states it can move to have values <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>, assign it the value mex(<i>s<sub>1</sub>,s<sub>2</sub>,...,s<sub>i</sub></i>) where mex is the <i>minimum excludant function</i>: the smallest non-negative integer which is not in <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>.
+    </p>
+    <p>
+        By doing this, we can "add" two or more short games: if at any turn the player can make a valid move on any game with the player who loses the last game still being played losing, we can take their Nim-values and Nim-add them to work out who has a winning strategy and what it is.
+    </p>
+    <p>
+        Using this strategy, try to find a pattern to the following games.
+    </p>
+    <ol class="spacedlist">
+        <li>
+            In the game of <i>Turning Turtles</i>, there is a line with 19 tails-up coins, and two players alternate making moves. At any turn a player may turn a coin to heads, then if they wish turn over a coin to its left if there is such a coin. Which player has a winning strategy?
+        </li>
+        <li>
+            Albert and Barbara play the following game. At the beginning there are some piles of coins on the table, not all necessarily with the same number of coins. The players move in turn and Albert starts. Each player makes one and only one of the following possible moves:
+            <ul class="unspacedlist">
+                <li>Removing one coin from a pile; or</li>
+                <li>Dividing a pile into two piles, each pile with at least one coin.</li>
+            </ul>
+            The one who takes the last coin wins the game. Depending on the number of piles and on the number of coins that each pile contains at the beginning, find which of the players has a winning strategy.
+        </li>
+        <li>
+            There is a chessboard with a rook on a2, a pile with 20 tickets in it and the number 19 written on a blackboard. Two players take turns making a move, which consists of either moving the rook up or right (but not both) any number of squares while still remaining on the chessboard, removing some tickets from the pile or replacing the number on the blackboard with a positive number 1, 2 or 3 less than what is already written there. The person who cannot move loses. Which player has a winning strategy?
+        </li>
+    </ol>
+    <h2>
         Miscellaneous Problems
     </h2>
     <p>
@@ -135,6 +189,18 @@
             <i>Note: you can assume that a draw is impossible, but this is also interesting to prove.</i>
             <div class="smallpadding"></div>
             <img src="5x5%20Hex%20Grid.png" alt="5x5 grid for Hex">
+        </li>
+        <li>
+            The game of <i>Kayles</i> is played with a line of counters touching end to end. Two players take turns removing one or two adjacent counters (if two counters, the counters must still be touching each other). The person to take the last counter wins. Which player has a winning strategy?
+        </li>
+        <li>
+            The game of <i>2D-Nimbles</i> is played on a checkerboard. Four checkers are on the squares a1, a2, b2 and c4, with two players alternating moving them. At any stage a player can move any counter up or to the right (but not both at once) any number of squares while remaining on the board (including landing on another counter). The person who moves the last token to h8 wins. Which player can win if they play optimally?
+        </li>
+        <li>
+            <i>Northcott's game</i> is played on a chessboard. The pawns are set up as usual, except two players alternate moving a pawn of their colour up or down its file (column) as many squares as desired as long as it doesn't capture or jump over the other pawn in the column. If a player cannot move, they lose. Does one player have a winning strategy? Who?
+        </li>
+        <li>
+            The <i>Silver Dollar Game</i> is played on a finite strip of boxes. Some coins have been placed on the strip, and two players take turns moving coins left without jumping over or landing on another coin. The player who cannot move (due to all the coins being at the very left) loses. Determine which player has a winning strategy depending on the position.
         </li>
         <li>
             The game of <i>Udokus</i> is played on a <a href="sudokugrid">9x9 grid divided into 3x3 boxes</a>. Two player take turns placing any whole number from 1 to 9 in an empty cell, such that no two identical numbers are in the same row, column or box. The first player who cannot move loses. Assuming optimal play, who wins?
