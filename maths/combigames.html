@@ -138,7 +138,7 @@ a^b |     011 (3) |      11101 (29) |      000000 (0)</pre>
         Interestingly, this technique can be used for more than just Nim. The <i>Sprague-Grundy Theorem</i> states that in a short game, all positions can be labelled with a number which represents an equivalent Nim value.
     </p>
     <p>
-        This is done by labelling all end states as 0, then for each state which does not yet have a value but all states it can move to have values <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>, assign it the value mex(<i>s<sub>1</sub>,s<sub>2</sub>,...,s<sub>i</sub></i>) where mex is the <i>minimum excludant function</i>: the smallest non-negative integer which is not in <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>.
+        This is done by labelling all winning end states as 0 (or losing end states as 1: we can consider them as being a winning position for the next player), then for each state which does not yet have a value but all states it can move to have values <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>, assign it the value mex(<i>s<sub>1</sub>,s<sub>2</sub>,...,s<sub>i</sub></i>) where <i>mex</i> is the <i>minimum excludant function</i>: the smallest non-negative integer which is not in <i>s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>i</sub></i>.
     </p>
     <p>
         By doing this, we can "add" two or more short games: if at any turn the player can make a valid move on any game with the player who loses the last game still being played losing, we can take their Nim-values and Nim-add them to work out who has a winning strategy and what it is.
@@ -148,7 +148,7 @@ a^b |     011 (3) |      11101 (29) |      000000 (0)</pre>
     </p>
     <ol class="spacedlist">
         <li>
-            In the game of <i>Turning Turtles</i>, there is a line with 19 tails-up coins, and two players alternate making moves. At any turn a player may turn a coin to heads, then if they wish turn over a coin to its left if there is such a coin. Which player has a winning strategy?
+            In the game of <i>Turning Turtles</i>, there is a line with 19 tails-up coins, and two players alternate making moves. At any turn a player may turn a coin to heads, then if they wish turn over a coin to its left if there is such a coin. If a player cannot move, they lose. Which player has a winning strategy?
         </li>
         <li>
             Albert and Barbara play the following game. At the beginning there are some piles of coins on the table, not all necessarily with the same number of coins. The players move in turn and Albert starts. Each player makes one and only one of the following possible moves:
