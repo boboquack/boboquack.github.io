@@ -1,0 +1,125 @@
+body{
+    background-color: paleturquoise;
+    font-family: Verdana;
+    text-align: justify
+}
+
+a{
+    color: forestgreen;
+    text-decoration: none;
+}
+
+ul.topbaritem{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: darkturquoise;
+    position: fixed;    
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.topbaritem li{
+    float:left;
+}
+.topbaritem a{
+    display: block;
+    padding: 10px 10px;
+    color: white;
+    text-decoration: none;
+}
+.topbaritem a:hover{
+    background-color: mediumaquamarine;
+}
+
+div#topbarspace{
+    margin-top: 45px;
+}
+
+div.smallpadding{
+    margin-top: 10px;
+}
+
+div.wrapper{
+    margin: 30px;
+}
+
+a#topbaractive{
+    background-color: cadetblue;
+}
+
+a#topbaractive:hover{
+    background-color: mediumaquamarine;
+}
+
+a#dropdownactive{
+    background-color: palegoldenrod;
+}
+
+a#dropdownactive:hover{
+    background-color: sandybrown;
+}
+
+li.dropdown{
+    display: inline;
+}
+
+.dropdowntail{
+    display: none;
+    position: absolute;
+    background-color: lightgoldenrodyellow;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdowntail a{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdowntail a:hover{
+    background-color: sandybrown;
+}
+
+.dropdown:hover .dropdowntail{
+    display: block;
+}
+
+li.dropdowntop a{
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.dropdowntop a:hover, .dropdown:hover {
+  background-color: mediumaquamarine;
+}
+
+table.generictable {
+    border-collapse: collapse;
+}
+
+.generictable td {
+    border: 1px solid black;
+}
+
+.blanktable td{
+    padding: 15px;
+}
+
+.spacedlist li{
+    margin-bottom: 10px;
+}
+
+.unspacedlist li{
+    margin-bottom: 0px;
+}
+
+p.textadventure{
+    line-height: 0px;
+}
