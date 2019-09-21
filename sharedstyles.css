@@ -80,11 +80,6 @@ li.dropdown{
     text-align: left;
 }
 
-img.halfsize {
-  max-width:50%;
-  max-height:50%;
-}
-
 .dropdowntail a:hover{
     background-color: sandybrown;
 }
