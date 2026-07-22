@@ -1,0 +1,23 @@
+.letter-button {
+    width: 1.5em;
+    font-size: 18pt;
+}
+
+.spelling {
+    font-family: monospace;
+    font-size: 24pt;
+}
+
+.timer {
+    font-family: monospace;
+    font-size: 18pt;
+}
+
+.results {
+    margin: 0;
+    padding: 0;
+}
+
+.answer {
+    font-family: monospace;
+}
