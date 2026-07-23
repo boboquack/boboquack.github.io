@@ -245,7 +245,7 @@ function run_game() {
   results = [];
   current_spelling = "";
   load_display();
-  game_interval = setInterval(update_timer,10);
+  game_interval = setInterval(update_timer,200);
 }
 
 var game_type;
