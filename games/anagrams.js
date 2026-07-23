@@ -6,7 +6,7 @@ var date_string;
 function get_front_screen() {
   var now = new Date();
   var day = now.getDate();
-  var month = now.getMonth();
+  var month = now.getMonth()+1;
   var year = now.getFullYear();
   if(day<10) day = "0"+day;
   if(month<10) month = "0"+month;
@@ -14,12 +14,19 @@ function get_front_screen() {
   today_seed = year*10000+month*100+day;
   return `
 <p>
-    <b>Daily challenge (`+date_string+`):</b> <button id="start-daily">Begin Daily</button>
+    <b>Daily challenge (`+date_string+`):</b> <button id="start-daily-regular" disabled>Regular mode</button> <button id="start-daily-hard" disabled>Hard mode</button>
 </p>
 <p>
-    <b>Practice mode:</b> <button id="start-practice">Begin Practice</button>
+    <b>Practice:</b> <button id="start-practice-regular" disabled>Regular mode</button> <button id="start-practice-hard" disabled>Hard mode</button>
 </p>
   `
+}
+
+function enable_play_buttons() {
+  document.getElementById("start-daily-regular").disabled = false;
+  document.getElementById("start-practice-regular").disabled = false;
+  document.getElementById("start-daily-hard").disabled = false;
+  document.getElementById("start-practice-hard").disabled = false;
 }
 
 function splitmix32(a) {
@@ -42,16 +49,29 @@ function random_int(low, high) {
 }
 
 var sequence;
-function choose_words(seed) {
+function choose_words(seed, difficulty) {
   prng = splitmix32(seed);
   sequence = [];
-  for(let i=0;i<9;i++){
-    let i1 = random_int(0,words[i].length-1);
-    let i2 = i1;
-    while(i2 === i1) i2 = random_int(0,words[i].length-1);
-    sequence.push(words[i][i1]);
-    sequence.push(words[i][i2]);
-  }
+  if(difficulty === REGULAR) {
+    for(let i=0;i<6;i++){
+      let i1 = random_int(0,words[i].length-1);
+      let i2 = i1;
+      while(i2 === i1) i2 = random_int(0,words[i].length-1);
+      let i3 = i1;
+      while(i3 === i1 || i3 === i2) i3 = random_int(0,words[i].length-1);
+      sequence.push(words[i][i1]);
+      sequence.push(words[i][i2]);
+      sequence.push(words[i][i3]);
+    }
+  }else if(difficulty === HARD) {
+    for(let i=0;i<9;i++){
+      let i1 = random_int(0,words[i].length-1);
+      let i2 = i1;
+      while(i2 === i1) i2 = random_int(0,words[i].length-1);
+      sequence.push(words[i][i1]);
+      sequence.push(words[i][i2]);
+    }
+  }else throw new Error("invalid difficulty: "+difficulty)
   return sequence;
 }
 
@@ -67,6 +87,15 @@ var reenable_letter_buttons;
 const TOO_SLOW = -1;
 const SKIPPED = 0;
 const SOLVED = 1;
+
+const REGULAR = 0;
+const HARD = 1;
+
+function diff_to_word(difficulty) {
+  if(difficulty === REGULAR) return "Regular";
+  if(difficulty === HARD) return "Hard";
+  return "???";
+}
 
 function make_letter_buttons() {
   let curr_word = word_order[word_num];
@@ -84,24 +113,40 @@ function make_letter_buttons() {
     }
   }
   let letters = "";
+  let active = [];
+  let handlers = [];
   for(let i=0; i<sorted_word.length; i++) {
     letters = letters + `<button id="letter-`+i+`-button" class="letter-button">`+sorted_word[i]+`</button> `;
+    active.push(true);
+    let handler = () => {
+      document.getElementById("letter-"+i+"-button").disabled = true;
+      active[i] = false;
+      current_spelling += sorted_word[i];
+      update_spelling();
+    };
+    handlers.push(handler);
   }
+  
   attach_letter_button_handlers = () => {
     for(let i=0; i<sorted_word.length; i++) {
-      let button = document.getElementById("letter-"+i+"-button");
-      document.getElementById("letter-"+i+"-button").addEventListener("click", () => {
-        button.disabled = true;
-        current_spelling += sorted_word[i];
-        update_spelling();
-      })
+      document.getElementById("letter-"+i+"-button").addEventListener("click", handlers[i])
     }
   }
   reenable_letter_buttons = () => {
     for(let i=0; i<sorted_word.length; i++) {
       document.getElementById("letter-"+i+"-button").disabled = false;
+      active[i] = true;
     }
   }
+  handle_letter_press = (c) => {
+    for(let i=0; i<sorted_word.length; i++) {
+      if(active[i] && c.toUpperCase() === sorted_word[i]) {
+        handlers[i]();
+        return;
+      }
+    }
+  }
+  word_active = true;
   return letters;
 }
 
@@ -158,6 +203,7 @@ function clear_spelling() {
 }
 
 function advance_word(reason) {
+  word_active = false;
   document.getElementById("skip-word").disabled = true;
   results.push(reason);
   word_num+=1;
@@ -203,26 +249,38 @@ function run_game() {
 }
 
 var game_type;
-function start_daily() {
-  word_order = choose_words(today_seed);
-  game_type = "Daily "+date_string;
+function start_daily(difficulty) {
+  word_order = choose_words(today_seed*2+difficulty, difficulty);
+  game_type = "Daily "+date_string+" | "+diff_to_word(difficulty);
   run_game();
 }
 
-function start_practice() {
-  word_order = choose_words(get_seed());
-  game_type = "Practice";
+function start_practice(difficulty) {
+  word_order = choose_words(get_seed(), difficulty);
+  game_type = "Practice | "+diff_to_word(difficulty);
   run_game();
 }
 
 function add_front_screen_handlers() {
-  document.getElementById("start-daily").addEventListener("click", start_daily);
-  document.getElementById("start-practice").addEventListener("click", start_practice);
+  document.getElementById("start-daily-regular").addEventListener("click", () => start_daily(REGULAR));
+  document.getElementById("start-practice-regular").addEventListener("click", () => start_practice(REGULAR));
+  document.getElementById("start-daily-hard").addEventListener("click", () => start_daily(HARD));
+  document.getElementById("start-practice-hard").addEventListener("click", () => start_practice(HARD));
 }
 
 function load_front_screen() {
   document.getElementById("main").innerHTML = get_front_screen();
   add_front_screen_handlers();
+  enable_play_buttons();
+  window.addEventListener("keydown", handle_keypress);
+}
+
+var word_active = false;
+var handle_letter_press;
+function handle_keypress(e) {
+  if (e.repeat || !word_active) return;
+  if (e.key === "Backspace") clear_spelling();
+  handle_letter_press(e.key);
 }
 
 var text_results;
@@ -295,6 +353,7 @@ function load_results() {
   document.getElementById("main").innerHTML = top + `<br><hr><br>` + middle + `<br>` + bottom;
   add_front_screen_handlers();
   add_results_handlers();
+  setTimeout(enable_play_buttons, 1_000);
 }
 
 load_front_screen();
