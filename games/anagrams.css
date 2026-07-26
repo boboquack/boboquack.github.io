@@ -18,6 +18,11 @@
     padding: 0;
 }
 
+.long-results {
+    margin: 0;
+    padding: 0;
+}
+
 .answer {
     font-family: monospace;
 }

@@ -183,7 +183,7 @@ function add_spelling_feedback(feedback) {
 function validate_spelling() {
   if(all_words.has(current_spelling.toLowerCase())){
     add_spelling_feedback(current_spelling+" is correct!");
-    advance_word(SOLVED);
+    advance_word(SOLVED, current_spelling);
   } else {
     add_spelling_feedback(current_spelling+" is not a valid word.");
     clear_spelling();
@@ -202,10 +202,17 @@ function clear_spelling() {
   update_spelling();
 }
 
-function advance_word(reason) {
+var last_time;
+var times;
+var submissions;
+function advance_word(reason, submission = "") {
   word_active = false;
   document.getElementById("skip-word").disabled = true;
   results.push(reason);
+  let now = Date.now();
+  times.push(now-last_time);
+  last_time = now;
+  submissions.push(submission);
   word_num+=1;
   if(word_num >= 18) {
     end_game();
@@ -241,8 +248,11 @@ function update_timer() {
 
 function run_game() {
   word_num = 0;
-  timeout = Date.now() + 30_000;
+  last_time = Date.now();
+  timeout = last_time + 30_000;
   results = [];
+  times = [];
+  submissions = [];
   current_spelling = "";
   load_display();
   game_interval = setInterval(update_timer,200);
@@ -338,7 +348,7 @@ function add_results_handlers() {
 }
 
 function get_words() {
-  text = "Intended words: ";
+  let text = "Intended words: ";
   for(let i=0;i<18;i+=1) {
     if(i>0) text += ", ";
     text += `<span class="answer">`+word_order[i].toUpperCase()+`</span>`;
@@ -346,10 +356,31 @@ function get_words() {
   return `<p>`+text+`</p>`
 }
 
+function get_long_results() {
+  let text = `<p class="long-results">Detailed results:</p>`;
+  for(let i=0;i<18;i+=1) {
+    let msg = "#"+(i+1)+`: <span class="answer">`+word_order[i].toUpperCase()+`</span> `;
+    var emoji = "❓";
+    if(results[i]===SOLVED) emoji = "✅";
+    else if(results[i]===TOO_SLOW) emoji = "🐌";
+    else if(results[i]===SKIPPED) emoji = "⏩";
+    msg += emoji + " ";
+    let secs = Math.max(Math.round(times[i]/1_000),1);
+    let mins = "0"+Math.floor(secs/60);
+    secs = secs%60;
+    if(secs<10) secs = "0"+secs;
+    let time = mins+":"+secs;
+    msg += "("+time+" used)";
+    if(results[i]===SOLVED) msg += `, submitted <span class="answer">` + submissions[i] + `</span>`
+    text+=`\n<p class="long-results">`+msg+`</p>`
+  }
+  return text;
+}
+
 function load_results() {
   let middle = get_results();
+  let bottom = get_long_results();
   let top = get_front_screen();
-  let bottom = get_words();
   document.getElementById("main").innerHTML = top + `<br><hr><br>` + middle + `<br>` + bottom;
   add_front_screen_handlers();
   add_results_handlers();
