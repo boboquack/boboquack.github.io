@@ -371,7 +371,7 @@ function get_long_results() {
     if(secs<10) secs = "0"+secs;
     let time = mins+":"+secs;
     msg += "("+time+" used)";
-    if(results[i]===SOLVED) msg += `, submitted <span class="answer">` + submissions[i] + `</span>`
+    if(results[i]===SOLVED && word_order[i].toUpperCase()!==submissions[i]) msg += `, submitted <span class="answer">` + submissions[i] + `</span>`
     text+=`\n<p class="long-results">`+msg+`</p>`
   }
   return text;
